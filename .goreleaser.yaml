@@ -1,0 +1,73 @@
+version: 2
+
+project_name: arvanstatus-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: arvanstatus-cli
+    main: .
+    binary: arvanstatus-cli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+archives:
+  - id: default
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - README.md
+      - LICENSE*
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "^ci:"
+
+nfpms:
+  - id: packages
+    package_name: arvanstatus-cli
+    vendor: raha-io
+    homepage: https://github.com/parham-alvani/arvanstatus-cli
+    maintainer: Parham Alvani <parham.alvani@gmail.com>
+    description: Terminal UI that polls the ArvanCloud status page and reports incidents.
+    license: MIT
+    formats:
+      - deb
+      - rpm
+      - apk
+    bindir: /usr/bin
+
+release:
+  github:
+    owner: parham-alvani
+    name: arvanstatus-cli
+  draft: false
+  prerelease: auto
+  name_template: "v{{.Version}}"
