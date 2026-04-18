@@ -23,10 +23,6 @@ and shows live service health and recent incidents. Built with
 ↑/k up • ↓/j down • tab switch pane • enter detail • r refresh • q quit
 ```
 
-## Requirements
-
-- Go **1.26** or newer
-
 ## Install
 
 ```sh
