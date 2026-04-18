@@ -1,4 +1,4 @@
-# arvanstatus-cli
+# ArvanCloud Status CLI
 
 A terminal UI that polls the [ArvanCloud status page](https://status.arvancloud.com)
 and shows live service health and recent incidents. Built with
@@ -87,7 +87,3 @@ This tool calls two unauthenticated JSON endpoints:
 
 Timestamps are returned in `Asia/Tehran` local time without offset and are
 parsed accordingly.
-
-## License
-
-MIT
